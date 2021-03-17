@@ -1,0 +1,51 @@
+{
+  "name": "stable-env-parser",
+  "version": "0.0.1",
+  "description": "Simple environment parser with full typescript inferring support",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Svehla/stable-env-parser"
+  },
+  "license": "ISC",
+  "author": "Michal Obořil",
+  "contributors": [
+    "Michal Obořil",
+    "Jakub Švehla"
+  ],
+  "keywords": [
+    "parser",
+    "envs",
+    "typescript",
+    "inferring",
+    "runtime-validation"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "prepare": "npm run build",
+    "build": "tsc",
+    "clean": "tsc --build --clean",
+    "lint": "eslint \"{src,tests}/**/*.{js,ts}\"",
+    "lint:fix": "eslint \"{src,tests}/**/*{js,ts}\" --fix",
+    "ts:check-types": "tsc",
+    "ts:check-types:watch": "tsc --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^26.0.21",
+    "@types/node": "^14.14.35",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.5.4",
+    "typescript": "^4.2.3"
+  }
+}

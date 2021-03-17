@@ -11,11 +11,11 @@ export class ValidationError extends Error {
 
 export const getNumberFromEnvParser = (envName: string) => () => {
   const envValue = process.env[envName]?.trim()
-  const parsedInt = parseFloat(envValue ?? '')
-  if (isNaN(parsedInt)) {
+  const parsedNum = parseFloat(envValue ?? '')
+  if (isNaN(parsedNum)) {
     throw new ValidationError('Value is not parsable as integer', envName)
   }
-  return parsedInt
+  return parsedNum
 }
 
 const defaultTransformFn = (value: string) => value

@@ -59,14 +59,14 @@ Default values for environment variables are anti-pattern.
 It may happen that you forget to add PORT in the production and your app silently fails and you have no idea why.
 So we recommend not to set default environment values in your Javascript codebase.
 
-### Batched runtime validator errors
+## Batched runtime validator errors
 
 If you don't define some of your variables or the env validation fails
 `typed-env-parser` will batch and show all error messages in one Error interruption.
 
-![Typescript preview](./example/static/error-batching.png-1.png)
+![Typescript preview](./example/static/error-batching.png)
 
-### Extensible API
+## Extensible API
 
 Library brings simple extensible API on how to write custom parser function.
 

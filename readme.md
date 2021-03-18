@@ -68,7 +68,9 @@ If you don't define some of your variables or the env validation fails
 
 ## API
 
-### basic value parsers
+### root module: `typed-env-parser`
+
+#### basic value parsers
 
 ```typescript
 import { getNumberFromEnvParser } from 'typed-env-parser'

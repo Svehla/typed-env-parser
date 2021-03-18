@@ -8,7 +8,7 @@ import {
   getStringEnumFromEnvParser,
   validateConfig,
 } from '../src'
-import { getSecretFromEnvFileParser } from '../src/node'
+import { getEnvFromFileParser } from '../src/node'
 
 const testEnvironmentVariables = {
   ENV_ZERO: 'http://www.kokodak.bagr/lopata',
@@ -57,7 +57,7 @@ describe('validateConfig', () => {
           siegFried: getBoolFromEnvParser('ENV_THREE'),
           green: {
             someWord: getBoolFromEnvParser('ENV_FOUR'),
-            secret: getSecretFromEnvFileParser('ENV_FIVE'),
+            secret: getEnvFromFileParser('ENV_FIVE'),
             thisIsNotFromEnv: 'Hello',
           },
         },

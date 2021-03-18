@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'fs'
 import { ValidationError } from '../ValidationError'
 
-export const getSecretFromEnvFileParser = (envName: string, required = true) => () => {
+export const getEnvFromFileParser = (envName: string, required = true) => () => {
   if (typeof window === 'object') {
     throw new Error("You cant import ... from 'typed-env-parser/node' in the browser")
   }

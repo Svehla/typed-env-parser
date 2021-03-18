@@ -106,9 +106,9 @@ getBoolFromEnvParser: (envName: string)
 this modules includes only parsers valid in the nodejs environment
 
 ```typescript
-import { getSecretFromEnvFileParser } from 'typed-env-parser/node'
+import { getEnvFromFileParser } from 'typed-env-parser/node'
 // ...
-getSecretFromEnvFileParser: (envName: string, required?: boolean)
+getEnvFromFileParser: (envName: string, required?: boolean)
 ```
 
 ## Extensible API

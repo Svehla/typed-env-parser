@@ -1,6 +1,9 @@
+TODOs:
 - Add API documentation into readme.md
 - What about possible parsers
-  - Array
-  - Int Parser (non float types)
-  - Number range 
+  - ArrayField parser
+  - Int Parser (throw error if you pass float type)
+  - Number range parser
+  - String min len, max len (is that valuable? if we have regex?)
 - Add more tests and test browser edge cases
+- rename getEnvFromFileParser to getEnvFromFileParser

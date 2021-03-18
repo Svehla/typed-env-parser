@@ -1,11 +1,14 @@
+/**
+ * @jest-environment node
+ */
 import {
   getBoolFromEnvParser,
   getNumberFromEnvParser,
-  getSecretFromEnvFileParser,
   getStringFromEnvParser,
   getStringEnumFromEnvParser,
   validateConfig,
 } from '../src'
+import { getSecretFromEnvFileParser } from '../src/node'
 
 const testEnvironmentVariables = {
   ENV_ZERO: 'http://www.kokodak.bagr/lopata',

@@ -1,11 +1,9 @@
-import { EnvParserGetter } from './configEnvParsers'
-
-interface ConfigValidators {
-  [Key: string]: ConfigValidators | EnvParserGetter | string | boolean | number
+type ConfigValidators = {
+  [Key: string]: any
 }
 
-interface RawValidatedConfig {
-  [Key: string]: RawValidatedConfig | ReturnType<EnvParserGetter>
+type RawValidatedConfig = {
+  [Key: string]: any
 }
 
 type AppConfig<C> = C extends (...args: any[]) => infer Res

@@ -64,7 +64,7 @@ describe('validateConfig', () => {
         ENV_NODE_ENV_GOOD: getStringEnumFromEnvParser('ENV_NODE_ENV_GOOD', [
           'production',
           'development',
-        ]),
+        ] as const),
         plain: getStringFromEnvParser('ENV_TWO'),
       }
 
@@ -105,7 +105,7 @@ describe('validateConfig', () => {
         ENV_NODE_ENV_BAD: getStringEnumFromEnvParser('ENV_NODE_ENV_BAD', [
           'production',
           'development',
-        ]),
+        ] as const),
       }
       expect(() => {
         validateConfig(confValidators)

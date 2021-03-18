@@ -6,7 +6,7 @@ type RawValidatedConfig = {
   [Key: string]: any
 }
 
-type AppConfig<C> = C extends (...args: any[]) => infer Res
+export type AppConfig<C> = C extends (...args: any[]) => infer Res
   ? Res
   : C extends Record<any, any>
   ? {

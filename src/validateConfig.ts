@@ -21,7 +21,7 @@ export const validateConfig = <T extends ConfigValidators>(configValidators: T) 
     const result: RawValidatedConfig = {}
     Object.entries(innerConfigValidators).forEach(([configKey, validatorOrNested]) => {
       const newPath = [...path, configKey]
-      if (typeof validatorOrNested === 'object') {
+      if (typeof validatorOrNested === 'object' && !Array.isArray(validatorOrNested)) {
         result[configKey] = validateRecursively(validatorOrNested, newPath)
       } else if (typeof validatorOrNested === 'function') {
         try {

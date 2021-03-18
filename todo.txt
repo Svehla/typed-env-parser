@@ -3,3 +3,4 @@
   - Array
   - Int Parser (non float types)
   - Number range 
+- Add more tests and test browser edge cases

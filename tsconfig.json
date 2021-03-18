@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "target": "es5",
     "lib": ["esnext", "es2018.promise", "es2017", "dom", "esnext.asynciterable"],
     "allowJs": true,
     "downlevelIteration": true,
@@ -25,7 +25,7 @@
 
     // lib settings
     "removeComments": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "dist",
     "noEmit": false,
     "declaration": true,

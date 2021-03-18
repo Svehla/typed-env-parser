@@ -1,6 +1,6 @@
 # Typed env parser
 
-No dependency, 13.2 kB small library which help you to properly validate all environment variables.
+No dependency, micro library which help you to properly validate all environment variables.
 Library supports
 
 - Runtime JavaScript validation
@@ -65,6 +65,51 @@ If you don't define some of your variables or the env validation fails
 `typed-env-parser` will batch and show all error messages in one Error interruption.
 
 ![Typescript preview](./example/static/error-batching.png)
+
+## API
+
+### root module: `typed-env-parser`
+
+#### basic value parsers
+
+```typescript
+import { getNumberFromEnvParser } from 'typed-env-parser'
+// ...
+getNumberFromEnvParser: (envName: string)
+```
+
+```typescript
+import { getStringFromEnvParser } from 'typed-env-parser'
+// ...
+getStringFromEnvParser: (envName: string, config?: {
+  allowEmptyString?: boolean | undefined;
+  // regex pattern
+  pattern?: string | undefined;
+  transform?: ((value: string) => string) | undefined;
+})
+```
+
+```typescript
+import { getStringEnumFromEnvParser } from 'typed-env-parser'
+// ...
+getStringEnumFromEnvParser: (envName: string, possibleEnumValues: string[])
+```
+
+```typescript
+import { getBoolFromEnvParser } from 'typed-env-parser'
+// ...
+getBoolFromEnvParser: (envName: string)
+```
+
+### module: `typed-env-parser/node`
+
+this modules includes only parsers valid in the nodejs environment
+
+```typescript
+import { getSecretFromEnvFileParser } from 'typed-env-parser/node'
+// ...
+getSecretFromEnvFileParser: (envName: string, required?: boolean)
+```
 
 ## Extensible API
 

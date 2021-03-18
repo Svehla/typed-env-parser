@@ -1,13 +1,4 @@
-import { existsSync, readFileSync } from 'fs'
-
-export class ValidationError extends Error {
-  constructor(msg: string, envName?: string) {
-    const fullMsg = envName
-      ? `${msg}, current value of '${envName}' is '${process.env[envName]}'`
-      : msg
-    super(fullMsg)
-  }
-}
+import { ValidationError } from './ValidationError'
 
 export const getNumberFromEnvParser = (envName: string) => () => {
   const envValue = process.env[envName]?.trim()
@@ -65,21 +56,3 @@ export const getBoolFromEnvParser = (envName: string) => () => {
   }
   throw new ValidationError('Value is not parsable as boolean', envName)
 }
-
-export const getSecretFromEnvFileParser = (envName: string, required = true) => () => {
-  const envValue = process.env[envName]?.trim()
-  if (!envValue || envValue.length === 0 || !existsSync(envValue)) {
-    if (!required) {
-      return ''
-    }
-    throw new ValidationError(`There is no file path stored in ${envName}`, envName)
-  }
-  return readFileSync(envValue, 'utf-8').trim()
-}
-
-export type EnvParserGetter =
-  | ReturnType<typeof getNumberFromEnvParser>
-  | ReturnType<typeof getStringFromEnvParser>
-  | ReturnType<typeof getBoolFromEnvParser>
-  | ReturnType<typeof getSecretFromEnvFileParser>
-  | ReturnType<typeof getStringEnumFromEnvParser>

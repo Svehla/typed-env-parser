@@ -1,11 +1,14 @@
+/**
+ * @jest-environment node
+ */
 import {
   getBoolFromEnvParser,
   getNumberFromEnvParser,
-  getSecretFromEnvFileParser,
   getStringFromEnvParser,
   getStringEnumFromEnvParser,
   validateConfig,
 } from '../src'
+import { getSecretFromEnvFileParser } from '../src/node'
 
 const testEnvironmentVariables = {
   ENV_ZERO: 'http://www.kokodak.bagr/lopata',
@@ -48,6 +51,8 @@ describe('validateConfig', () => {
         hostAndSomething: getStringFromEnvParser('ENV_TWO', {
           transform: parsedEnv => `${parsedEnv}/kokodák/${parsedEnv}`,
         }),
+        usersIds1: [1, 2, 3],
+        usersIds2: () => [1, 2, 3],
         blue: {
           siegFried: getBoolFromEnvParser('ENV_THREE'),
           green: {
@@ -59,7 +64,7 @@ describe('validateConfig', () => {
         ENV_NODE_ENV_GOOD: getStringEnumFromEnvParser('ENV_NODE_ENV_GOOD', [
           'production',
           'development',
-        ]),
+        ] as const),
         plain: getStringFromEnvParser('ENV_TWO'),
       }
 
@@ -67,6 +72,8 @@ describe('validateConfig', () => {
         regExTest: 'http://www.kokodak.bagr/lopata',
         port: 888,
         hostAndSomething: 'sharkInDark/kokodák/sharkInDark',
+        usersIds1: [1, 2, 3],
+        usersIds2: [1, 2, 3],
         blue: {
           siegFried: true,
           green: {
@@ -98,7 +105,7 @@ describe('validateConfig', () => {
         ENV_NODE_ENV_BAD: getStringEnumFromEnvParser('ENV_NODE_ENV_BAD', [
           'production',
           'development',
-        ]),
+        ] as const),
       }
       expect(() => {
         validateConfig(confValidators)

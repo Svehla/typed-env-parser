@@ -1,14 +1,12 @@
-import { EnvParserGetter } from './configEnvParsers'
-
-interface ConfigValidators {
-  [Key: string]: ConfigValidators | EnvParserGetter | string | boolean | number
+type ConfigValidators = {
+  [Key: string]: any
 }
 
-interface RawValidatedConfig {
-  [Key: string]: RawValidatedConfig | ReturnType<EnvParserGetter>
+type RawValidatedConfig = {
+  [Key: string]: any
 }
 
-type AppConfig<C> = C extends (...args: any[]) => infer Res
+export type AppConfig<C> = C extends (...args: any[]) => infer Res
   ? Res
   : C extends Record<any, any>
   ? {
@@ -23,7 +21,7 @@ export const validateConfig = <T extends ConfigValidators>(configValidators: T) 
     const result: RawValidatedConfig = {}
     Object.entries(innerConfigValidators).forEach(([configKey, validatorOrNested]) => {
       const newPath = [...path, configKey]
-      if (typeof validatorOrNested === 'object') {
+      if (typeof validatorOrNested === 'object' && !Array.isArray(validatorOrNested)) {
         result[configKey] = validateRecursively(validatorOrNested, newPath)
       } else if (typeof validatorOrNested === 'function') {
         try {

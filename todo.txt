@@ -1,1 +1,5 @@
 - Add API documentation into readme.md
+- What about possible parsers
+  - Array
+  - Int Parser (non float types)
+  - Number range 

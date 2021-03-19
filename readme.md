@@ -107,12 +107,12 @@ getListFromEnvParser: (
 )
 ```
 
-### module: `typed-env-parser/node`
+### module: `typed-env-parser/parsers/node`
 
 this modules includes only parsers valid in the nodejs environment
 
 ```typescript
-import { getEnvFromFileParser } from 'typed-env-parser/node'
+import { getEnvFromFileParser } from 'typed-env-parser/parsers/node'
 // ...
 getEnvFromFileParser: (envName: string, required?: boolean)
 ```

@@ -7,3 +7,4 @@ TODOs:
   - String min len, max len (is that valuable? if we have regex?)
 - Add more tests and test browser edge cases
 - rename getEnvFromFileParser to getEnvFromFileParser
+- parsers is the new dist => remove nesting source code while publishing repo

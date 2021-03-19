@@ -72,7 +72,7 @@ export const getListFromEnvParser = <T = string>(
 
 const isBrowser = typeof window === 'object'
 
-export const getEnvFromFileParser: () => () => string = isBrowser
+export const getEnvFromFileParser: (env: string, required?: boolean) => () => string = isBrowser
   ? () => () => {
       throw new Error(`You cant import 'getEnvFromFileParser' in the browser`)
     }

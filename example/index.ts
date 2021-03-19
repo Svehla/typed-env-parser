@@ -2,6 +2,7 @@ import {
   getNumberFromEnvParser,
   getStringEnumFromEnvParser,
   getStringFromEnvParser,
+  getListFromEnvParser,
   validateConfig,
 } from '../src/'
 
@@ -11,6 +12,12 @@ const customEnvs = {
   POSTGRES_HOST: 'localhost',
   POSTGRES_PASSWORD: 'Password1!',
   ADMIN_SERVICE_URL: 'https://example.com',
+
+  ENV_NODE_ARR_STR_1: '["a", "b", "c"]',
+  ENV_NODE_ARR_STR_2: '["d", "e", "f"]',
+  ENV_NODE_ARR_STR_3: '["a", null, "b"]',
+  ENV_NODE_ARR_FLOAT: '[1, 1.1, 1.11]',
+  ENV_NODE_ARR_INT: '[{ "a": 1 }, 1, 1]',
 }
 
 Object.entries(customEnvs).forEach(([key, oldValue]) => {
@@ -30,6 +37,13 @@ export const appEnvs = validateConfig({
   a: [1, 2, 3],
   some: {
     nestedKey: getStringFromEnvParser('ADMIN_SERVICE_URL', { pattern: '(http|https)://*.' }),
+  },
+
+  arrays: {
+    arrStr1: getListFromEnvParser('ENV_NODE_ARR_STR_1'),
+    arrStr2: getListFromEnvParser('ENV_NODE_ARR_STR_2', String),
+    arrFloat: getListFromEnvParser('ENV_NODE_ARR_FLOAT', parseFloat),
+    arrInt: getListFromEnvParser('ENV_NODE_ARR_INT', a => a),
   },
 })
 

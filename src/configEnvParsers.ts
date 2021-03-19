@@ -56,3 +56,16 @@ export const getBoolFromEnvParser = (envName: string) => () => {
   }
   throw new ValidationError('Value is not parsable as boolean', envName)
 }
+
+export const getListFromEnvParser = <T = string>(
+  envName: string,
+  // @ts-expect-error default String does not match function that Returns T
+  valueParser: (arg: any) => T = String
+) => (): T[] => {
+  const envValue = process.env[envName]?.trim()
+  const parsedArr = JSON.parse(envValue ?? '')
+  if (!Array.isArray(parsedArr)) {
+    throw new ValidationError('Passed value is not array', envName)
+  }
+  return parsedArr.map(i => valueParser(i))
+}

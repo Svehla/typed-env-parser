@@ -69,3 +69,23 @@ export const getListFromEnvParser = <T = string>(
   }
   return parsedArr.map(i => valueParser(i))
 }
+
+const isClient = typeof window === 'object'
+
+export const getEnvFromFileParser = (envName: string, required = true) => () => {
+  if (isClient) {
+    throw new Error(`You cant import 'getEnvFromFileParser' in the browser`)
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { existsSync, readFileSync } = require('fs')
+
+  const envValue = process.env[envName]?.trim()
+  if (!envValue || envValue.length === 0 || !existsSync(envValue)) {
+    if (!required) {
+      return ''
+    }
+    throw new ValidationError(`There is no file path stored in ${envName}`, envName)
+  }
+  return readFileSync(envValue, 'utf-8').trim()
+}

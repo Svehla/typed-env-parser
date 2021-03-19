@@ -19,8 +19,8 @@
     "inferring",
     "runtime-validation"
   ],
-  "main": "parsers/index.js",
-  "types": "parsers/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     ""
   ],

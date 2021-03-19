@@ -8,8 +8,8 @@ import {
   getStringEnumFromEnvParser,
   validateConfig,
   getListFromEnvParser,
+  getEnvFromFileParser,
 } from '../src'
-import { getEnvFromFileParser } from '../src/node'
 
 const testEnvironmentVariables = {
   ENV_ZERO: 'http://www.kokodak.bagr/lopata',

@@ -69,3 +69,12 @@ export const getListFromEnvParser = <T = string>(
   }
   return parsedArr.map(i => valueParser(i))
 }
+
+const isBrowser = typeof window === 'object'
+
+export const getEnvFromFileParser: (env: string, required?: boolean) => () => string = isBrowser
+  ? () => {
+      throw new Error(`You cant import 'getEnvFromFileParser' in the browser`)
+    }
+  : // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require('./node/parsers').getEnvFromFileParser

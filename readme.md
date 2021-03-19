@@ -41,10 +41,6 @@ export const appEnvs = validateConfig({
 
 ![Typescript preview](./example/static/ts-preview-1.png)
 
-## Requirements
-
-Typescript >= 4.1.5
-
 ## Philosophical part of the library
 
 ### One source of truth

@@ -42,6 +42,7 @@ export const appEnvs = validateConfig({
   arrays: {
     arrStr1: getListFromEnvParser('ENV_NODE_ARR_STR_1'),
     arrStr2: getListFromEnvParser('ENV_NODE_ARR_STR_2', String),
+    arrStr3: getListFromEnvParser('ENV_NODE_ARR_STR_3', x => String(x)),
     arrFloat: getListFromEnvParser('ENV_NODE_ARR_FLOAT', parseFloat),
     arrInt: getListFromEnvParser('ENV_NODE_ARR_INT', a => a),
   },

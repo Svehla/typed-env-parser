@@ -1,9 +1,8 @@
 TODOs:
 - Add API documentation into readme.md
 - What about possible parsers
-  - ArrayField parser
   - Int Parser (throw error if you pass float type)
   - Number range parser
   - String min len, max len (is that valuable? if we have regex?)
-- Add more tests and test browser edge cases
-- rename getEnvFromFileParser to getEnvFromFileParser
+- Add more tests
+- Check webpack browser bundle size

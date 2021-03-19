@@ -7,6 +7,7 @@ import {
   getStringFromEnvParser,
   getStringEnumFromEnvParser,
   validateConfig,
+  getListFromEnvParser,
 } from '../src'
 import { getEnvFromFileParser } from '../src/node'
 
@@ -19,6 +20,11 @@ const testEnvironmentVariables = {
   ENV_FIVE: `${__dirname}/validateConfig.spec.fixture`,
   ENV_NODE_ENV_GOOD: 'production',
   ENV_NODE_ENV_BAD: '___production',
+  ENV_NODE_ARR_STR_1: '["a", "b", "c"]',
+  ENV_NODE_ARR_STR_2: '["d", "e", "f"]',
+  ENV_NODE_ARR_STR_3: '["a", null, "b"]',
+  ENV_NODE_ARR_FLOAT: '[1, 1.1, 1.11]',
+  ENV_NODE_ARR_INT: '[1, 1, 1]',
 }
 
 // original env  - put it back after tests done to not interferes with another tests that may use env
@@ -66,6 +72,11 @@ describe('validateConfig', () => {
           'development',
         ] as const),
         plain: getStringFromEnvParser('ENV_TWO'),
+        arrStr1: getListFromEnvParser('ENV_NODE_ARR_STR_1'),
+        arrStr2: getListFromEnvParser('ENV_NODE_ARR_STR_2', String),
+        arrStr3: getListFromEnvParser('ENV_NODE_ARR_STR_3'),
+        arrFloat: getListFromEnvParser('ENV_NODE_ARR_FLOAT', parseFloat),
+        arrInt: getListFromEnvParser('ENV_NODE_ARR_INT', parseInt),
       }
 
       const parsedConfig = {
@@ -84,16 +95,28 @@ describe('validateConfig', () => {
         },
         ENV_NODE_ENV_GOOD: 'production',
         plain: 'sharkInDark',
+        arrStr1: ['a', 'b', 'c'],
+        arrStr2: ['d', 'e', 'f'],
+        arrStr3: ['a', 'null', 'b'],
+        arrFloat: [1, 1.1, 1.11],
+        arrInt: [1, 1, 1],
       }
       expect(validateConfig(configValidators)).toStrictEqual(parsedConfig)
     })
   })
   describe('fails', () => {
-    it('enum-values', () => {
+    it('test array 1', () => {
       const confValidators = {
-        regExTest: getStringFromEnvParser('ENV_ZERO', {
-          pattern: `!!!!https?://*.`,
-        }),
+        foo: getListFromEnvParser('ENV_ONE'),
+      }
+      expect(() => {
+        validateConfig(confValidators)
+      }).toThrowError()
+    })
+
+    it('test array 2', () => {
+      const confValidators = {
+        foo: getListFromEnvParser('ENV_TWO'),
       }
       expect(() => {
         validateConfig(confValidators)

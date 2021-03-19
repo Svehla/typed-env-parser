@@ -97,6 +97,16 @@ import { getBoolFromEnvParser } from 'typed-env-parser'
 getBoolFromEnvParser: (envName: string)
 ```
 
+```typescript
+import { getBoolFromEnvParser } from 'typed-env-parser'
+// ...
+getListFromEnvParser: (
+  envName: string,
+  // default parser value is the `String`
+  arrItemParser = () => T
+)
+```
+
 ### module: `typed-env-parser/node`
 
 this modules includes only parsers valid in the nodejs environment

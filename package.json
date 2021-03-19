@@ -22,11 +22,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "/dist"
+    ""
   ],
   "scripts": {
     "test": "jest",
-    "prepare": "npm run build",
+    "prepare": "npm run clean && npm run build",
     "build": "tsc",
     "clean": "tsc --build --clean",
     "lint": "eslint \"{src,tests}/**/*.{js,ts}\"",

@@ -1,6 +1,6 @@
 {
   "name": "typed-env-parser",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Simple environment parser with full typescript inferring support",
   "repository": {
     "type": "git",
@@ -21,6 +21,9 @@
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "browser": {
+    "fs": false
+  },
   "scripts": {
     "test": "jest",
     "prepare": "npm run clean && npm run build",

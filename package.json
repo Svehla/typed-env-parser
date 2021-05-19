@@ -21,6 +21,9 @@
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "browser": {
+    "fs": false
+  },
   "scripts": {
     "test": "jest",
     "prepare": "npm run clean && npm run build",

@@ -25,6 +25,7 @@ const testEnvironmentVariables = {
   ENV_NODE_ARR_STR_3: '["a", null, "b"]',
   ENV_NODE_ARR_FLOAT: '[1, 1.1, 1.11]',
   ENV_NODE_ARR_INT: '[1, 1, 1]',
+  ENV_EMPTY: '',
 }
 
 // original env  - put it back after tests done to not interferes with another tests that may use env
@@ -77,6 +78,11 @@ describe('validateConfig', () => {
         arrStr3: getListFromEnvParser('ENV_NODE_ARR_STR_3'),
         arrFloat: getListFromEnvParser('ENV_NODE_ARR_FLOAT', parseFloat),
         arrInt: getListFromEnvParser('ENV_NODE_ARR_INT', parseInt),
+        empty: getStringFromEnvParser('ENV_EMPTY', { allowEmptyString: true }),
+        emptyWithPattern: getStringFromEnvParser('ENV_EMPTY', {
+          allowEmptyString: true,
+          pattern: `https?://*.`,
+        }),
       }
 
       const parsedConfig = {
@@ -100,6 +106,8 @@ describe('validateConfig', () => {
         arrStr3: ['a', 'null', 'b'],
         arrFloat: [1, 1.1, 1.11],
         arrInt: [1, 1, 1],
+        empty: '',
+        emptyWithPattern: '',
       }
       expect(validateConfig(configValidators)).toStrictEqual(parsedConfig)
     })

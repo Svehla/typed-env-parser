@@ -20,10 +20,11 @@ export const getStringFromEnvParser = (
   } = {}
 ) => () => {
   const envValue = process.env[envName]?.trim()
-  if (envValue === undefined || (!allowEmptyString && envValue.length === 0)) {
+  const isValueDisallowed = !allowEmptyString && envValue?.length === 0
+  if (envValue === undefined || isValueDisallowed) {
     throw new ValidationError('Value is not set or it is empty string', envName)
   }
-  if (pattern) {
+  if (pattern && isValueDisallowed) {
     const validator = new RegExp(pattern)
     if (validator.test(envValue) === false) {
       throw new ValidationError(`Value does not match the regex pattern ${pattern}`, envName)

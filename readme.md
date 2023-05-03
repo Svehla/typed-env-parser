@@ -97,7 +97,7 @@ getStringEnumFromEnvParser: (envName: string, possibleEnumValues: string[], {
 import { getBoolFromEnvParser } from 'typed-env-parser'
 // ...
 getBoolFromEnvParser: (envName: string, config?: {
-  allowEmptyString?: string | undefined
+  allowEmptyString?: boolean | undefined
 })
 ```
 

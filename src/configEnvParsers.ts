@@ -77,10 +77,10 @@ export const getBoolFromEnvParser = <AllowEmpty extends boolean = false>(
   }
 
   if (envValue?.toLowerCase() === 'true' || envValue === '1') {
-    return true as BoolOrEmptyString<AllowEmpty>
+    return true
   }
   if (envValue?.toLowerCase() === 'false' || envValue === '0') {
-    return false as BoolOrEmptyString<AllowEmpty>
+    return false
   }
   throw new ValidationError('Value is not parsable as boolean', envName)
 }

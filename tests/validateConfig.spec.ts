@@ -156,7 +156,7 @@ describe('validateConfig', () => {
     it('one', () => {
       const confValidators = {
         blue: getNumberFromEnvParser('ENV_TWO'),
-        yellow: { ja: getBoolFromEnvParser('ENV_ONE', { allowEmptyString: true }) },
+        yellow: { ja: getBoolFromEnvParser('ENV_ONE') },
       }
       expect(() => {
         validateConfig(confValidators)

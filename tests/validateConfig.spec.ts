@@ -78,11 +78,19 @@ describe('validateConfig', () => {
         arrStr3: getListFromEnvParser('ENV_NODE_ARR_STR_3'),
         arrFloat: getListFromEnvParser('ENV_NODE_ARR_FLOAT', parseFloat),
         arrInt: getListFromEnvParser('ENV_NODE_ARR_INT', parseInt),
-        empty: getStringFromEnvParser('ENV_EMPTY', { allowEmptyString: true }),
-        emptyWithPattern: getStringFromEnvParser('ENV_EMPTY', {
+        emptyString: getStringFromEnvParser('ENV_EMPTY', { allowEmptyString: true }),
+        emptyStringWithPattern: getStringFromEnvParser('ENV_EMPTY', {
           allowEmptyString: true,
           pattern: `https?://*.`,
         }),
+        emptyBool: getBoolFromEnvParser('ENV_EMPTY', { allowEmptyString: true }),
+        emptyEnum: getStringEnumFromEnvParser('ENV_EMPTY', [
+          'production',
+          'development',
+        ] as const,
+          {
+            allowEmptyString: true,
+          }),
       }
 
       const parsedConfig = {
@@ -106,8 +114,10 @@ describe('validateConfig', () => {
         arrStr3: ['a', 'null', 'b'],
         arrFloat: [1, 1.1, 1.11],
         arrInt: [1, 1, 1],
-        empty: '',
-        emptyWithPattern: '',
+        emptyString: '',
+        emptyStringWithPattern: '',
+        emptyBool: '',
+        emptyEnum: '',
       }
       expect(validateConfig(configValidators)).toStrictEqual(parsedConfig)
     })
@@ -146,7 +156,7 @@ describe('validateConfig', () => {
     it('one', () => {
       const confValidators = {
         blue: getNumberFromEnvParser('ENV_TWO'),
-        yellow: { ja: getBoolFromEnvParser('ENV_ONE') },
+        yellow: { ja: getBoolFromEnvParser('ENV_ONE', { allowEmptyString: true }) },
       }
       expect(() => {
         validateConfig(confValidators)

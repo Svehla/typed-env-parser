@@ -27,7 +27,7 @@ export const validateConfig = <T extends ConfigValidators>(configValidators: T) 
         try {
           result[configKey] = validatorOrNested()
         } catch (e) {
-          errors.push([newPath.join('.'), e])
+          errors.push([newPath.join('.'), e as Error])
         }
       } else {
         result[configKey] = validatorOrNested

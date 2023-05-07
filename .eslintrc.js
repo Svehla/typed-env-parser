@@ -11,5 +11,18 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/explicit-module-boundary-type': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
+    'prettier/prettier': [
+      'error',
+      {
+        semi: false,
+        useTabs: false,
+        trailingComma: 'es5',
+        singleQuote: true,
+        printWidth: 100,
+        tabWidth: 2,
+        arrowParens: 'avoid',
+        jsxSingleQuote: true,
+      },
+    ],
   },
 }

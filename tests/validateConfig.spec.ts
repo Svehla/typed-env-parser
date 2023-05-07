@@ -84,13 +84,9 @@ describe('validateConfig', () => {
           pattern: `https?://*.`,
         }),
         emptyBool: getBoolFromEnvParser('ENV_EMPTY', { allowEmptyString: true }),
-        emptyEnum: getStringEnumFromEnvParser('ENV_EMPTY', [
-          'production',
-          'development',
-        ] as const,
-          {
-            allowEmptyString: true,
-          }),
+        emptyEnum: getStringEnumFromEnvParser('ENV_EMPTY', ['production', 'development'] as const, {
+          allowEmptyString: true,
+        }),
       }
 
       const parsedConfig = {

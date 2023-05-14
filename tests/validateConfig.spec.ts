@@ -128,6 +128,17 @@ describe('validateConfig', () => {
       }).toThrowError()
     })
 
+    it('should fail when not matching pattern', () => {
+      const validators = {
+        safeLopataUrl: getStringFromEnvParser('ENV_ZERO', {
+          pattern: '^https:.*lopata$',
+        }),
+      }
+      expect(() => {
+        validateConfig(validators)
+      }).toThrowError()
+    })
+
     it('test array 2', () => {
       const confValidators = {
         foo: getListFromEnvParser('ENV_TWO'),

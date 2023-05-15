@@ -88,13 +88,17 @@ getStringFromEnvParser: (envName: string, config?: {
 ```typescript
 import { getStringEnumFromEnvParser } from 'typed-env-parser'
 // ...
-getStringEnumFromEnvParser: (envName: string, possibleEnumValues: string[])
+getStringEnumFromEnvParser: (envName: string, possibleEnumValues: string[], {
+  allowEmptyString?: boolean | undefined;
+})
 ```
 
 ```typescript
 import { getBoolFromEnvParser } from 'typed-env-parser'
 // ...
-getBoolFromEnvParser: (envName: string)
+getBoolFromEnvParser: (envName: string, config?: {
+  allowEmptyString?: boolean | undefined
+})
 ```
 
 ```typescript
@@ -107,9 +111,9 @@ getListFromEnvParser: (
 )
 ```
 
-### nodejs specific module: `typed-env-parser`
+### Node.js specific module: `typed-env-parser`
 
-this modules includes only parsers valid in the nodejs environment
+this modules includes only parsers valid in the Node.js environment
 
 ```typescript
 import { getEnvFromFileParser } from 'typed-env-parser'

@@ -87,6 +87,7 @@ describe('validateConfig', () => {
         emptyEnum: getStringEnumFromEnvParser('ENV_EMPTY', ['production', 'development'] as const, {
           allowEmptyString: true,
         }),
+        emptyInt: getNumberFromEnvParser('ENV_EMPTY', { allowEmptyString: true }),
       }
 
       const parsedConfig = {
@@ -114,6 +115,7 @@ describe('validateConfig', () => {
         emptyStringWithPattern: '',
         emptyBool: '',
         emptyEnum: '',
+        emptyInt: '',
       }
       expect(validateConfig(configValidators)).toStrictEqual(parsedConfig)
     })
@@ -181,6 +183,15 @@ describe('validateConfig', () => {
 
     it('three', () => {
       const configValidators = {
+        nonExistingEnv: getNumberFromEnvParser('HILDA_UND_GUNTER'),
+      }
+      expect(() => {
+        validateConfig(configValidators)
+      }).toThrowError()
+    })
+
+    it('four', () => {
+      const configValidators = {
         ich: {
           bin: {
             mi: {
@@ -192,6 +203,24 @@ describe('validateConfig', () => {
 
       expect(() => {
         validateConfig(configValidators)
+      }).toThrowError()
+    })
+
+    it('five', () => {
+      const confValidators = {
+        one: getBoolFromEnvParser('ENV_TWO'),
+      }
+      expect(() => {
+        validateConfig(confValidators)
+      }).toThrowError()
+    })
+
+    it('six', () => {
+      const confValidators = {
+        one: getNumberFromEnvParser('ENV_TWO'),
+      }
+      expect(() => {
+        validateConfig(confValidators)
       }).toThrowError()
     })
   })

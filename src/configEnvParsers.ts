@@ -1,13 +1,32 @@
 import { ValidationError } from './ValidationError'
 
-export const getNumberFromEnvParser = (envName: string) => () => {
-  const envValue = process.env[envName]?.trim()
-  const parsedNum = parseFloat(envValue ?? '')
-  if (isNaN(parsedNum)) {
-    throw new ValidationError('Value is not parsable as integer', envName)
+type NumberOrEmptyString<T extends boolean> = T extends true ? '' | number : number
+
+export const getNumberFromEnvParser =
+  <AllowEmpty extends boolean = false>(
+    envName: string,
+    { allowEmptyString }: { allowEmptyString?: AllowEmpty } = {}
+  ) =>
+  (): NumberOrEmptyString<AllowEmpty> => {
+    const envValue = process.env[envName]?.trim()
+
+    const isValueDisallowed = !allowEmptyString && envValue?.length === 0
+    if (envValue === undefined || isValueDisallowed) {
+      throw new ValidationError('Value is not set or it is empty string', envName)
+    }
+
+    if (allowEmptyString && envValue.length === 0) {
+      return '' as NumberOrEmptyString<AllowEmpty>
+    }
+
+    const parsedNum = parseFloat(envValue ?? '')
+
+    if (isNaN(parsedNum)) {
+      throw new ValidationError('Value is not parsable as number', envName)
+    }
+
+    return parsedNum
   }
-  return parsedNum
-}
 
 const defaultTransformFn = (value: string) => value
 

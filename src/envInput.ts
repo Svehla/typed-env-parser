@@ -1,1 +1,1 @@
-export const processEnv = typeof window === 'object' ? window.process.env : process.env
+export const getProcessEnv = () => (typeof window === 'object' ? window.process.env : process.env)

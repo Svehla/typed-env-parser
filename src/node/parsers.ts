@@ -1,11 +1,11 @@
-import { processEnv } from '../envInput'
+import { getProcessEnv } from '../envInput'
 import { ValidationError } from '../ValidationError'
 import { existsSync, readFileSync } from 'fs'
 
 export const getEnvFromFileParser =
   (envName: string, required = true) =>
   () => {
-    const envValue = processEnv[envName]?.trim()
+    const envValue = getProcessEnv()[envName]?.trim()
     if (!envValue || envValue.length === 0 || !existsSync(envValue)) {
       if (!required) {
         return ''

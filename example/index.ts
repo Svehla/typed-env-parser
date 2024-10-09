@@ -21,7 +21,7 @@ const customEnvs = {
 }
 
 Object.entries(customEnvs).forEach(([key, oldValue]) => {
-  process.env[key] = oldValue
+  globalThis.process.env[key] = oldValue
 })
 
 export const appEnvs = validateConfig({

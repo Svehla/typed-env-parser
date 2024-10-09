@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'fs'
 export const getEnvFromFileParser =
   (envName: string, required = true) =>
   () => {
-    const envValue = process.env[envName]?.trim()
+    const envValue = globalThis.process.env[envName]?.trim()
     if (!envValue || envValue.length === 0 || !existsSync(envValue)) {
       if (!required) {
         return ''

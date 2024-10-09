@@ -21,22 +21,28 @@ import {
   getStringEnumFromEnvParser,
   getStringFromEnvParser,
   validateConfig,
-} from 'typed-env-parser'
+} from "typed-env-parser";
 
 export const appEnvs = validateConfig({
-  PORT: getNumberFromEnvParser('PORT'),
-  NODE_ENV: getStringEnumFromEnvParser('NODE_ENV', ['production', 'development', 'test'] as const),
+  PORT: getNumberFromEnvParser("PORT"),
+  NODE_ENV: getStringEnumFromEnvParser("NODE_ENV", [
+    "production",
+    "development",
+    "test",
+  ] as const),
 
   postgres: {
-    HOST: getStringFromEnvParser('POSTGRES_HOST'),
-    PASSWORD: getStringFromEnvParser('POSTGRES_PASSWORD'),
+    HOST: getStringFromEnvParser("POSTGRES_HOST"),
+    PASSWORD: getStringFromEnvParser("POSTGRES_PASSWORD"),
     PORT: 5432,
   },
 
   some: {
-    nestedKey: getStringFromEnvParser('ADMIN_SERVICE_URL', { pattern: '(http|https)://*.' }),
+    nestedKey: getStringFromEnvParser("ADMIN_SERVICE_URL", {
+      pattern: "(http|https)://*.",
+    }),
   },
-})
+});
 ```
 
 ![Typescript preview](./example/static/ts-preview-1.png)
@@ -126,25 +132,29 @@ getEnvFromFileParser: (envName: string, required?: boolean)
 Library brings simple extensible API on how to write custom parser function.
 
 ```typescript
-import { ValidationError, validateConfig } from 'typed-env-parser'
+import { ValidationError, validateConfig } from "typed-env-parser";
 
 // --- custom parser code starts ---
-export const myCustomNumberRangeParser = (envName: string, from: number, to: number) => () => {
-  const envValue = process.env[envName]?.trim()
-  const parsedNum = parseFloat(envValue ?? '')
-  if (isNaN(parsedNum)) {
-    throw new ValidationError('Value is not parsable as integer', envName)
-  }
-  if (parsedNum <= from || parsedNum >= to) {
-    throw new ValidationError(`Value is not in the range <${from}, ${to}>`, envName)
-  }
-  return parsedNum
-}
+export const myCustomNumberRangeParser =
+  (envName: string, from: number, to: number) => () => {
+    const envValue = globalThis.process.env[envName]?.trim();
+    const parsedNum = parseFloat(envValue ?? "");
+    if (isNaN(parsedNum)) {
+      throw new ValidationError("Value is not parsable as integer", envName);
+    }
+    if (parsedNum <= from || parsedNum >= to) {
+      throw new ValidationError(
+        `Value is not in the range <${from}, ${to}>`,
+        envName
+      );
+    }
+    return parsedNum;
+  };
 // --- custom parser code ends ---
 
 export const appEnvs = validateConfig({
-  PORT: myCustomNumberRangeParser('PORT', 1000, 2000),
-})
+  PORT: myCustomNumberRangeParser("PORT", 1000, 2000),
+});
 ```
 
 And the error output will look like this:

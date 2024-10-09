@@ -1,3 +1,4 @@
+import { processEnv } from './envInput'
 import { ValidationError } from './ValidationError'
 
 type NumberOrEmptyString<T extends boolean> = T extends true ? '' | number : number
@@ -8,7 +9,7 @@ export const getNumberFromEnvParser =
     { allowEmptyString }: { allowEmptyString?: AllowEmpty } = {}
   ) =>
   (): NumberOrEmptyString<AllowEmpty> => {
-    const envValue = globalThis.process.env[envName]?.trim()
+    const envValue = processEnv[envName]?.trim()
 
     const isValueDisallowed = !allowEmptyString && envValue?.length === 0
     if (envValue === undefined || isValueDisallowed) {
@@ -40,7 +41,7 @@ export const getStringFromEnvParser =
     } = {}
   ) =>
   () => {
-    const envValue = globalThis.process.env[envName]?.trim()
+    const envValue = processEnv[envName]?.trim()
     const valueIsEmpty = envValue?.length === 0
     if (envValue === undefined || (valueIsEmpty && !allowEmptyString)) {
       throw new ValidationError('Value is not set or it is empty string', envName)
@@ -63,7 +64,7 @@ export const getStringEnumFromEnvParser =
     { allowEmptyString }: { allowEmptyString?: AllowEmpty } = {}
   ) =>
   (): AllowEmpty extends true ? '' | T : T => {
-    const envValue = globalThis.process.env[envName]?.trim() as T
+    const envValue = processEnv[envName]?.trim() as T
 
     const isValueDisallowed = !allowEmptyString && envValue?.length === 0
     if (envValue === undefined || isValueDisallowed) {
@@ -92,7 +93,7 @@ export const getBoolFromEnvParser =
     { allowEmptyString }: { allowEmptyString?: AllowEmpty } = {}
   ) =>
   (): BoolOrEmptyString<AllowEmpty> => {
-    const envValue = globalThis.process.env[envName]?.trim()
+    const envValue = processEnv[envName]?.trim()
 
     const isValueDisallowed = !allowEmptyString && envValue?.length === 0
     if (envValue === undefined || isValueDisallowed) {
@@ -119,7 +120,7 @@ export const getListFromEnvParser =
     valueParser: (arg: any) => T = String
   ) =>
   (): T[] => {
-    const envValue = globalThis.process.env[envName]?.trim()
+    const envValue = processEnv[envName]?.trim()
     const parsedArr = JSON.parse(envValue ?? '')
     if (!Array.isArray(parsedArr)) {
       throw new ValidationError('Passed value is not array', envName)
